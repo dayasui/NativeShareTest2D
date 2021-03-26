@@ -27,10 +27,20 @@ public class NativeShareTest : MonoBehaviour {
     private IEnumerator TakeScreenShotCombine(Camera camA, Camera camB, UnityAction<Texture2D> onComplete) {
         
         yield return new WaitForEndOfFrame();
+        var texture = common.util.CameraRender.RenderCombine(camA, camB, TextureFormat.RGB24, Screen.width, Screen.height);
+        onComplete(texture);
+
+        /*
+        var renderTexture = new RenderTexture(Screen.width, Screen.height, 0);
+        //common.util.CameraRender.TakeScreenShot(renderTexture, camA, TextureFormat.RGB24, Screen.width, Screen.height);
+        renderTexture = common.util.CameraRender.RenderCombine(renderTexture, camB, TextureFormat.RGBA32, Screen.width, Screen.height);
         
-        var texA = common.util.CameraRender.TakeScreenShot(null, camA, TextureFormat.RGB24, Screen.width, Screen.height);
-        var texB = common.util.CameraRender.TakeScreenShot(null, camB, TextureFormat.RGBA32, Screen.width, Screen.height);
         
+        var texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        // RenderTexture.activeから読み込み
+        texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        // テクスチャの保存
+        texture.Apply();
         
         for (int x = 0; x < texB.width; x++) {
             for (int y = 0; y < texB.height; y++) {
@@ -39,11 +49,10 @@ public class NativeShareTest : MonoBehaviour {
                 texA.SetPixel(x, y, c);
             }
         }
-        
-        
-        Destroy(texB);
-        texA.Apply();
-        onComplete(texA);
-        //yield return null;
+        */
+
+        //Destroy(texB);
+        //texture.Apply();
+        //onComplete(texture);
     }
 }
