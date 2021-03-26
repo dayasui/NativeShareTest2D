@@ -26,7 +26,7 @@ public class NativeShareTest : MonoBehaviour {
     
     private IEnumerator TakeScreenShotCombine(Camera camA, Camera camB, UnityAction<Texture2D> onComplete) {
         
-        //yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
         
         var texA = common.util.CameraRender.TakeScreenShot(null, camA, TextureFormat.RGB24, Screen.width, Screen.height);
         var texB = common.util.CameraRender.TakeScreenShot(null, camB, TextureFormat.RGBA32, Screen.width, Screen.height);
@@ -44,6 +44,6 @@ public class NativeShareTest : MonoBehaviour {
         Destroy(texB);
         texA.Apply();
         onComplete(texA);
-        yield return null;
+        //yield return null;
     }
 }
